@@ -3,10 +3,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './AuthContext';
-import SignupPage from './SignUp/SignUp';
-import { Consulta } from './Consulta/Consulta';
-import Login from './Login/Login';
-import ProtectedRoute from './ProtectedRoute';
+import SignupPage from './SignUp/SignUp'
+import Login from './Login/Login'
+import {ProtectedRoute} from './ProtectedRoute'
+import {Consulta} from './Consulta/Consulta'
 
 function App() {
   return (
