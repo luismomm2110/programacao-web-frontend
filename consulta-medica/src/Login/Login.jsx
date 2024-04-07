@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
 
+import './Login.css'
+
 const Login = () => {
   // State to store the email and password
   const [email, setEmail] = useState('');
@@ -35,7 +37,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className={'login'}>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -58,6 +60,9 @@ const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <div>
+        <p>Não tem conta? <a href="/signup">Crie uma agora mesmo</a></p>
+      </div>
     </div>
   );
 };
