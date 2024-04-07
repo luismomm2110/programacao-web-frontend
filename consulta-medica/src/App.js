@@ -12,11 +12,13 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+          <div className="App">
         <Routes>
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/consulta" element={<ProtectedRoute><Consulta /></ProtectedRoute>} />
         </Routes>
+          </div>
       </BrowserRouter>
     </AuthProvider>
   );
