@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './consultas.css';
 
@@ -13,12 +13,13 @@ const getTodayFormattedForInput = () => {
 export const Consulta = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(getTodayFormattedForInput());
+  const [doctors, setDoctors] = useState([]);
 
-  const doctors = [
-    { id: 1, name: 'Dr. Ana Silva' },
-    { id: 2, name: 'Dr. João Souza' },
-    { id: 3, name: 'Dr. Maria Pereira' },
-  ];
+    useEffect(() => {
+    fetch('http://127.0.0.1:5000/medicos')
+      .then((response) => response.json())
+      .then((data) => setDoctors(data));
+    }, []);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -34,7 +35,7 @@ export const Consulta = () => {
       <ul>
         {doctors.map((doctor) => (
           <li key={doctor.id}>
-            {doctor.name}
+            {doctor.nome}
             <button onClick={openModal}>Marcar Consulta</button>
           </li>
         ))}
