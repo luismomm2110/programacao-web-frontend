@@ -1,11 +1,18 @@
 import React, {useState} from 'react';
 
 import './consultas.css';
-import DatePicker from 'react-datepicker'
+
+const getTodayFormattedForInput = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = `${today.getMonth() + 1}`.padStart(2, '0');
+    const day = `${today.getDate()}`.padStart(2, '0');
+    return `${year}-${month}-${day}`;  // YYYY-MM-DD
+  };
 
 export const Consulta = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(getTodayFormattedForInput());
 
   const doctors = [
     { id: 1, name: 'Dr. Ana Silva' },
@@ -15,6 +22,10 @@ export const Consulta = () => {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const onMarcarConsulta = () => {
+    alert(`Consulta marcada para ${selectedDate}`);
+    closeModal();
+  }
 
   return (
     <div className={'consultas'}>
@@ -30,10 +41,17 @@ export const Consulta = () => {
       </ul>
         }
           {isModalOpen && (
-        <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: '#fff', padding: '20px', zIndex: 1000 }}>
-          <h2>Choose a Date</h2>
-          <DatePicker selected={selectedDate} onChange={(date) => setSelectedDate(date)} />
-          <button onClick={closeModal}>Close</button>
+        <div className={'datePicker'}>
+          <h2>Escolha uma data</h2>
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+          <div>
+            <button onClick={closeModal}>Fechar</button>
+            <button onClick={onMarcarConsulta}>Agendar</button>
+          </div>
         </div>
       )}
     </div>

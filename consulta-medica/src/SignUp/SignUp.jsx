@@ -43,7 +43,7 @@ const handleSubmit = (event) => {
   axios.post('http://127.0.0.1:5000/criar_paciente', payload)
     .then(response => {
       setError('');
-      navigate('/main'); // Redirect to the main page
+      navigate('/consulta'); // Redirect to the main page
     })
     .catch(error => {
       console.error('There was an error!', error);
