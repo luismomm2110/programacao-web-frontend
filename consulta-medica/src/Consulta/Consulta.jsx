@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import './consultas.css';
+import {useAuth} from '../AuthContext'
 
 const getTodayFormattedForInput = () => {
     const today = new Date();
@@ -11,20 +12,44 @@ const getTodayFormattedForInput = () => {
   };
 
 export const Consulta = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(getTodayFormattedForInput());
-  const [doctors, setDoctors] = useState([]);
+    const  {user, _} = useAuth()
 
-    useEffect(() => {
+
+        const [isModalOpen, setIsModalOpen] = useState(false);
+      const [selectedDate, setSelectedDate] = useState(getTodayFormattedForInput());
+      const [doctors, setDoctors] = useState([]);
+      const [selectedDoctor, setSelectedDoctor] = useState(null);
+      const openModal = (doctorId) => {
+          setSelectedDoctor(doctorId);
+          setIsModalOpen(true);
+      }
+      const closeModal = () => setIsModalOpen(false);
+
+  useEffect(() => {
     fetch('http://127.0.0.1:5000/medicos')
-      .then((response) => response.json())
-      .then((data) => setDoctors(data));
+        .then((response) => response.json())
+        .then((data) => setDoctors(data));
     }, []);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
   const onMarcarConsulta = () => {
-    alert(`Consulta marcada para ${selectedDate}`);
+
+    fetch('http://127.0.0.1:5000/consultas', {
+      method: 'POST', headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`,
+      },
+      body: JSON.stringify(
+        {
+            horario: selectedDate,
+            medico_id: selectedDoctor,
+        }
+      ),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch((error) => {
+      console.error('Error:', error);
+    });
     closeModal();
   }
 
@@ -36,7 +61,7 @@ export const Consulta = () => {
         {doctors.map((doctor) => (
           <li key={doctor.id}>
             {doctor.nome}
-            <button onClick={openModal}>Marcar Consulta</button>
+            <button onClick={() => openModal(doctor.id)}>Marcar Consulta</button>
           </li>
         ))}
       </ul>
