@@ -15,15 +15,16 @@ export const Consulta = () => {
     const  {user, _} = useAuth()
 
 
-        const [isModalOpen, setIsModalOpen] = useState(false);
-      const [selectedDate, setSelectedDate] = useState(getTodayFormattedForInput());
-      const [doctors, setDoctors] = useState([]);
-      const [selectedDoctor, setSelectedDoctor] = useState(null);
-      const openModal = (doctorId) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(getTodayFormattedForInput());
+    const [doctors, setDoctors] = useState([]);
+    const [selectedDoctor, setSelectedDoctor] = useState(null);
+    const [error, setError] = useState(null);
+    const openModal = (doctorId) => {
           setSelectedDoctor(doctorId);
           setIsModalOpen(true);
       }
-      const closeModal = () => setIsModalOpen(false);
+    const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     fetch('http://127.0.0.1:5000/medicos')
@@ -48,7 +49,7 @@ export const Consulta = () => {
     .then(response => response.json())
     .then(data => console.log(data))
     .catch((error) => {
-      console.error('Error:', error);
+      setError(error.message);
     });
     closeModal();
   }
@@ -78,6 +79,7 @@ export const Consulta = () => {
             <button onClick={closeModal}>Fechar</button>
             <button onClick={onMarcarConsulta}>Agendar</button>
           </div>
+            {error && <p>{error}</p>}
         </div>
       )}
     </div>
