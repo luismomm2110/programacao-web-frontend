@@ -14,8 +14,7 @@ const getTodayFormattedForInput = () => {
 export const Consulta = () => {
     const  {user, _} = useAuth()
 
-
-        const [isModalOpen, setIsModalOpen] = useState(false);
+      const [isModalOpen, setIsModalOpen] = useState(false);
       const [selectedDate, setSelectedDate] = useState(getTodayFormattedForInput());
       const [doctors, setDoctors] = useState([]);
       const [selectedDoctor, setSelectedDoctor] = useState(null);

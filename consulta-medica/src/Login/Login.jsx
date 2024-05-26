@@ -27,9 +27,10 @@ const Login = () => {
       const response = await axios.post('http://127.0.0.1:5000/login', userData);
       console.log('Login successful:', response.data);
       // Save the token in local storage
+      localStorage.setItem("id", response.data.id)
         localStorage.setItem('token', response.data.token);
       // Handle further actions here such as redirecting the user or storing the received token
-        navigate('/consulta'); // Redirect to the consulta page
+        navigate('/home'); // Redirect to the consulta page
     } catch (error) {
       console.error('Login error:', error.response ? error.response.data : error.message);
       // Handle errors here, such as notifying the user of an incorrect login attempt

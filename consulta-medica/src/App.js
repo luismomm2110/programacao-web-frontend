@@ -7,6 +7,7 @@ import SignupPage from './SignUp/SignUp'
 import Login from './Login/Login'
 import {ProtectedRoute} from './ProtectedRoute'
 import {Consulta} from './Consulta/Consulta'
+import {Home} from "./Home/Home";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/consulta" element={<ProtectedRoute><Consulta /></ProtectedRoute>} />
+          <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         </Routes>
           </div>
       </BrowserRouter>
