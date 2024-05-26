@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import './consultas.css';
 import {useAuth} from '../AuthContext'
+import {useNavigate} from "react-router-dom";
 
 const getTodayFormattedForInput = () => {
     const today = new Date();
@@ -11,8 +12,14 @@ const getTodayFormattedForInput = () => {
     return `${year}-${month}-${day}`;  // YYYY-MM-DD
   };
 
+
 export const Consulta = () => {
     const  {user, _} = useAuth()
+    const navigate = useNavigate()
+
+    const handleHome = () => {
+        navigate('/home');
+    }
 
       const [isModalOpen, setIsModalOpen] = useState(false);
       const [selectedDate, setSelectedDate] = useState(getTodayFormattedForInput());
@@ -54,7 +61,10 @@ export const Consulta = () => {
 
   return (
     <div className={'consultas'}>
-      <h1>Médicos</h1>
+        <header>
+          <h1>Médicos</h1>
+        </header>
+        <button onClick={handleHome}>Home</button>
         {doctors.length === 0 ? <p>Não há médicos disponíveis</p> :
       <ul>
         {doctors.map((doctor) => (

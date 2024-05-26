@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../AuthContext";
 import {useEffect, useState} from "react";
+import './home.css'
 
 export const  Home = () => {
     const  {user, _} = useAuth()
@@ -17,17 +18,57 @@ export const  Home = () => {
             .then(data => setConsultas(data))
     }, []);
 
-    // botao para ir pra pagina de consulta
     const handleConsulta = () => {
         navigate('/consulta')
     }
 
+    const handleCancelar = (consulta) => {
+        fetch(`http://localhost:5000/consultas/${consulta.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        //atualizar a lista de consultas
+        .then(() => {
+            setConsultas(consultas.filter(c => c.id !== consulta.id))
+        })
+    }
+
+    const Consultas = () => {
+        if (consultas.length === 0) return (<p>Nenhuma consulta marcada</p>)
+        const formatDate = (date) => {
+            const [year, month, day] = date.split('-');
+            return `${day}/${month}/${year}`;
+        }
+
+
+        return (
+            <ul>
+                {consultas.map(consulta =>
+                    <li key={consulta.id} className={'consulta-card'}>
+                        <p>{consulta.medico.nome}</p>
+                        <p>{formatDate(consulta.horario)}</p>
+                        <button onClick={() => handleCancelar(consulta)}>
+                            Cancelar
+                        </button>
+                   </li>)
+                }
+        </ul>
+        )
+    }
+
     return (
-        // TODO arrumar estilo
         <div className={'home'}>
-            <h1>Home</h1>
-            <button onClick={handleConsulta}>Nova Consulta</button>
+            <header>
+                <h1>Home</h1>
+                <button onClick={handleConsulta}>Nova Consulta</button>
+            </header>
+            <section>
+                <h2>Consultas marcadas</h2>
+                <Consultas />
+            </section>
         </div>
     )
-
 }
