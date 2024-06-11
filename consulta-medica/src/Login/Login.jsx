@@ -1,4 +1,4 @@
-// src/Login/Login.js
+// src/MedicoCadastro/MedicoCadastro.js
 
 import React, { useState } from 'react';
 import axios from 'axios';
@@ -25,14 +25,14 @@ const Login = () => {
     try {
       // Sending a POST request to the server endpoint
       const response = await axios.post('http://127.0.0.1:5000/login', userData);
-      console.log('Login successful:', response.data);
+      console.log('MedicoCadastro successful:', response.data);
       // Save the token in local storage
       localStorage.setItem("id", response.data.id)
         localStorage.setItem('token', response.data.token);
       // Handle further actions here such as redirecting the user or storing the received token
         navigate('/home'); // Redirect to the consulta page
     } catch (error) {
-      console.error('Login error:', error.response ? error.response.data : error.message);
+      console.error('MedicoCadastro error:', error.response ? error.response.data : error.message);
       // Handle errors here, such as notifying the user of an incorrect login attempt
     }
   };

@@ -8,6 +8,8 @@ import Login from './Login/Login'
 import {ProtectedRoute} from './ProtectedRoute'
 import {Consulta} from './Consulta/Consulta'
 import {Home} from "./Home/Home";
+import {MedicoConsulta} from "./MedicoConsulta/MedicoConsulta";
+import {MedicoCadastro} from "./MedicoCadastro/MedicoCadastro";
 
 function App() {
   return (
@@ -19,6 +21,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/consulta" element={<ProtectedRoute><Consulta /></ProtectedRoute>} />
           <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/medicos/:id" element={<MedicoConsulta />} />
+          <Route path="/medicos/cadastro" element={<MedicoCadastro />} />
+          <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
           </div>
       </BrowserRouter>

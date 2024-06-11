@@ -4,11 +4,9 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 import './styles.css';
 
-function SignupPage() {
+export const MedicoCadastro = () => {
   const [username, setUsername] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [crm, setCrm] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -17,16 +15,8 @@ function SignupPage() {
     setUsername(event.target.value);
   };
 
-  const handleCpfChange = (event) => {
-    setCpf(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  }
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const handleCrmChange = (event) => {
+    setCrm(event.target.value);
   };
 
 const handleSubmit = (event) => {
@@ -35,15 +25,15 @@ const handleSubmit = (event) => {
   // Construct the payload
   const payload = {
     nome: username,
-    email: email,
-    cpf: cpf,
-    password: password,
+    crm: crm,
   };
 
-  axios.post('http://127.0.0.1:5000/pacientes', payload)
+  axios.post('http://127.0.0.1:5000/medicos', payload)
     .then(response => {
       setError('');
-      navigate('/consulta'); // Redirect to the main page
+        console.log('MedicoCadastro successful:', response.data);
+        //naviate to medicos/:id/consultas
+        navigate(`/medicos/${response.data.id}`);
     })
     .catch(error => {
       console.error('There was an error!', error);
@@ -53,27 +43,17 @@ const handleSubmit = (event) => {
 };
   return (
     <form onSubmit={handleSubmit} className="signUp">
-      <h1>Crie sua conta</h1>
+      <h1>Cadastre um médico</h1>
       <div>
         <label>Nome:</label>
         <input type="text" value={username} onChange={handleUsernameChange} />
       </div>
       <div>
-        <label>Email:</label>
-        <input type="email" value={email} onChange={handleEmailChange} />
-        </div>
-      <div>
-        <label>CPF:</label>
-        <input type="text" value={cpf} onChange={handleCpfChange} />
-      </div>
-      <div>
-        <label>Senha:</label>
-        <input type="password" value={password} onChange={handlePasswordChange} />
+        <label>CRM:</label>
+        <input type="text" value={crm} onChange={handleCrmChange} />
       </div>
       <button type="submit">Criar</button>
         {error && <p style={{ color: 'red' }}>{error}</p>}
     </form>
   );
 }
-
-export default SignupPage;

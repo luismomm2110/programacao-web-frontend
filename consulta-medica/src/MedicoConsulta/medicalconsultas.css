@@ -1,0 +1,56 @@
+.medicalConsultas {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    li {
+        list-style: none;
+        margin: 40px 0;
+        width: 500px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        background: #c4dbe0;
+        gap : 10px;
+    }
+
+    button {
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: #61dafb;
+        color: white;
+        width: 100px;
+        cursor: pointer;
+    }
+}
+
+.datePicker {
+    position: fixed;
+    top: 50%;
+    left: 50%; transform: translate(-50%, -50%);
+    background: #9ab3e0;
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 5px;
+
+    h2 {
+        margin-top: 0;
+    }
+
+    button {
+        margin-top: 10px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: #61dafb;
+        color: white;
+        width: 100px;
+        cursor: pointer;
+    }
+}
