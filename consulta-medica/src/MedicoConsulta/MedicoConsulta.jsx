@@ -39,10 +39,10 @@ export const MedicoConsulta = () => {
 
 
         return (
-            <ul>
+            <ul className={'medicalConsultas'}>
                 {consultas.map(consulta =>
                     <li key={consulta.id} className={'consulta-card'}>
-                        <p>{consulta.medico.nome}</p>
+                        <p>{consulta.paciente_nome}</p>
                         <p>{formatDate(consulta.horario)}</p>
                         <button onClick={() => handleCancelar(consulta)}>
                             Cancelar
