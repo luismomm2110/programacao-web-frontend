@@ -28,8 +28,6 @@ export const MedicoConsulta = () => {
             });
     }, []);
 
-    const handleCancelar = (consulta) => {}
-
     const Consultas = () => {
         if (consultas.length === 0) return (<p>Nenhuma consulta marcada</p>)
         const formatDate = (date) => {
@@ -37,6 +35,18 @@ export const MedicoConsulta = () => {
             return `${day}/${month}/${year}`;
         }
 
+        const handleCancelar = (consulta) => {
+        fetch(`http://localhost:5000/consultas/${consulta.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            //atualizar a lista de consultas
+            .then(() => {
+                setConsultas(consultas.filter(c => c.id !== consulta.id))
+            })
+        }
 
         return (
             <ul className={'medicalConsultas'}>
