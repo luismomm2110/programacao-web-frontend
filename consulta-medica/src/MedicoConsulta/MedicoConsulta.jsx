@@ -35,28 +35,12 @@ export const MedicoConsulta = () => {
             return `${day}/${month}/${year}`;
         }
 
-        const handleCancelar = (consulta) => {
-        fetch(`http://localhost:5000/consultas/${consulta.id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            //atualizar a lista de consultas
-            .then(() => {
-                setConsultas(consultas.filter(c => c.id !== consulta.id))
-            })
-        }
-
         return (
             <ul className={'medicalConsultas'}>
                 {consultas.map(consulta =>
                     <li key={consulta.id} className={'consulta-card'}>
                         <p>{consulta.paciente_nome}</p>
                         <p>{formatDate(consulta.horario)}</p>
-                        <button onClick={() => handleCancelar(consulta)}>
-                            Cancelar
-                        </button>
                     </li>)
                 }
             </ul>
