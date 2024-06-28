@@ -28,6 +28,19 @@ export const MedicoConsulta = () => {
             });
     }, []);
 
+    function handleCancelar(consulta) {
+        fetch(`http://localhost:5000/consultas/${consulta.consulta_id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            //atualizar a lista de consultas
+            .then(() => {
+                setConsultas(consultas.filter(c => c.consulta_id !== consulta.consulta_id))
+            })
+    }
+
     const Consultas = () => {
         if (consultas.length === 0) return (<p>Nenhuma consulta marcada</p>)
         const formatDate = (date) => {
@@ -41,15 +54,18 @@ export const MedicoConsulta = () => {
                     <li key={consulta.id} className={'consulta-card'}>
                         <p>{consulta.paciente_nome}</p>
                         <p>{formatDate(consulta.horario)}</p>
+                        <button onClick={() => handleCancelar(consulta)}>
+                            Cancelar
+                        </button>
                     </li>)
                 }
             </ul>
         )
     }
 
-  return (
-    <div>
-        {carregando ? <p>Carregando...</p> : <h1>Consultas do médico {nome}</h1>}
+    return (
+        <div>
+            {carregando ? <p>Carregando...</p> : <h1>Consultas do médico {nome}</h1>}
         <Consultas/>
     </div>
   );

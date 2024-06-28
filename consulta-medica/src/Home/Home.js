@@ -23,7 +23,7 @@ export const  Home = () => {
     }
 
     const handleCancelar = (consulta) => {
-        fetch(`http://localhost:5000/consultas/${consulta.id}`, {
+        fetch(`http://localhost:5000/consultas/${consulta.consulta_id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${user.token}`,
@@ -32,7 +32,7 @@ export const  Home = () => {
         })
         //atualizar a lista de consultas
         .then(() => {
-            setConsultas(consultas.filter(c => c.id !== consulta.id))
+            setConsultas(consultas.filter(c => c.consulta_id !== consulta.consulta_id))
         })
     }
 
